@@ -2,11 +2,11 @@ var express = require('express');
 var app = express();
 
 app.get('/',function(req,res){
-	res.send('Hellow World!');
+	res.send('Hello World!');
 });
 
-app.listen(80, function(){
-	console.log('Example app listening on 80');
+app.listen(3000, function(){
+	console.log('Example app listening on 3000');
 
 });
 
