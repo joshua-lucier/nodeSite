@@ -16,7 +16,7 @@ app.get('/',function(req,res){
 });
 
 app.listen(settings.port, function(){
-	console.log('Example app listening on 3000');
+	console.log('Example app listening on ' + settings.port);
 
 });
 
