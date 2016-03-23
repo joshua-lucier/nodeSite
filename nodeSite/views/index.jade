@@ -1,5 +1,22 @@
-extends layout
-
 block content
-  h1= title
-  p Welcome to #{title}
+link(rel='stylesheet', type='text/css', href='./stylesheets/style.css')
+img#MainIcon(src="./images/LeftSideIcon.png")
+span#MainMenu
+	text#MainText
+		div.MenuItem 
+			a(href='./profile') Joshua Lucier
+		br
+		br
+		div.MenuItem 
+			a(href='./blog') Blog
+		br
+		br
+		div.MenuItem 
+			a(href='./resume') Resume
+		br
+		br
+		div.MenuItem 
+			a(href='./contact') Contact
+
+span#login 
+	a(href='./login') Login

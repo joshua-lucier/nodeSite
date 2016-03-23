@@ -6,3 +6,60 @@ body {
 a {
   color: #00B7FF;
 }
+
+@font-face {
+	font-family: custom;
+	src: url('./KaushanScript-Regular.otf');
+}
+
+#MainIcon {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -143px;
+	margin-left: -255px;
+}
+
+#MainMenu {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -60px;
+
+}
+
+#MainText:hover {
+
+}
+
+#MainText a {
+	text-decoration: none;
+	font-family: custom;
+	color: black;
+	font-size: 24px;
+}
+
+.MenuItem:hover {
+	border: 3px solid black;
+	border-radius: 5px;
+}
+
+#login {
+	position: fixed;
+	top: 100%;
+	left: 100%;
+	margin-top: -35px;
+	margin-left: -55px;
+}
+
+#login a {
+	font-family: custom;
+	font-size: 20px;
+	text-decoration: none;
+	color: black;
+}
+
+#login:hover {
+	border: 3px solid black;
+	border-radius: 5px;
+}
