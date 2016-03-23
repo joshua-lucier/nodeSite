@@ -1,8 +1,19 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    div#MainMenuH
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		header
+			div#MainMenuH
+				span.MenuItemH
+					a(href='/') Home
+				span.MenuItemH
+					a(href='/profile') Profile
+				span.MenuItemH
+					a(href='/blog') Blog
+				span.MenuItemH
+					a(href='/resume') Resume
+				span.MenuItemH
+					a(href='/contact') Contact
+		block content
