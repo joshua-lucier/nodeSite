@@ -16,7 +16,7 @@ a {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	margin-top: -143px;
+	margin-top: -183px;
 	margin-left: -255px;
 }
 
@@ -24,7 +24,7 @@ a {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	margin-top: -60px;
+	margin-top: -100px;
 
 }
 
@@ -119,4 +119,78 @@ body {
 	margin: 0px;
 	border: 0px;
 	padding: 0px;
+}
+
+.LoginPromptLabel {
+
+}
+#LoginPrompt {
+	width: 400px;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	margin-top: -20px;
+	margin-left: -250px;
+	border-radius: 10px;
+	border: 3px solid black;
+	padding: 30px;
+}
+.LoginPromptInput {
+	border-radius: 5px;
+}
+
+.LoginPromptDiv {
+	width: 400px;
+	margin: auto;
+}
+
+.LoginPromptDiv label {
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+}
+
+.LoginPromptDiv input {
+	width: 200px;
+}
+
+.LoginPromptDiv .submit {
+	width: 100px;
+}
+
+article {
+	padding: 20px;
+	height: 100%;
+}
+
+.skillsUL {
+	display: inline-block;
+	vertical-align: top;
+	left: 50%;
+	left-margin: -200px;
+}
+
+.BodyDiv {
+	width: 80%;
+	border: 5px solid black;
+	border-radius: 15px;
+	margin: auto;
+	padding: 20px;
+}
+
+.BodyDiv h1 {
+	text-align: center;
+}
+
+.BodyDiv h2 {
+	text-align: center;
+}
+
+p {
+    text-indent: 50px;
+}
+
+.SkillsDiv {
+	margin: auto;
+	width: 400px;
 }

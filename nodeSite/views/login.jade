@@ -1,3 +1,16 @@
 extends layout
 
 block content
+	div#LoginPrompt
+		form(action="/login",method="post")
+			div.LoginPromptDiv
+				label.LoginPromptLabel(for='username') Username:
+				input#username(type="text",name="username",class="LoginPromptInput")
+			br
+			div.LoginPromptDiv
+				label.LoginPromptLabel(for='password') Password:
+				input#password(type="password",name="password",class="LoginPromptInput")
+			br
+			div.LoginPromptDiv
+				center
+					input.submit(type="submit",value="Submit")
