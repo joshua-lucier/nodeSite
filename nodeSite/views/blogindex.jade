@@ -1,0 +1,11 @@
+extends layout
+
+block content
+		form#newentry(action="/newblogentry",method="post")
+			input#username(type="hidden",name="username",value="#{username}")
+			input#password(type="hidden",name="password",value="#{password}")
+			div.LoginPromptDiv
+				center
+					div.submitter
+						a(href="#",onclick="newentry.submit();") New Entry
+	p #{result}

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	form#blogenter(action="/blogentered" method="POST")
+		label.LoginPromptLabel(for="title") Title: 
+		input#title(type="text",name="title",maxlength="200")
+		input#username(type="hidden",name="username",value="#{username}")
+		input#password(type="hidden",name="password",value="#{password}")
+	br
+	textarea(name="blogtext" form="blogenter")
+	br
+	div.submitter
+		a(href="#",onclick="blogenter.submit()") Submit Entry

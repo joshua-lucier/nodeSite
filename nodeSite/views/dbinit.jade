@@ -1,8 +1,8 @@
 extends layout
 
 block content
-	div.LoginPrompt
-		form#loginform(action="/blogindex",method="post")
+		div.LoginPrompt
+		form(action="/dbinit",method="post")
 			div.LoginPromptDiv
 				label.LoginPromptLabel(for='username') Username:
 				input#username(type="text",name="username",class="LoginPromptInput")
@@ -13,5 +13,4 @@ block content
 			br
 			div.LoginPromptDiv
 				center
-					div.submitter
-						a(href="#",onclick="loginform.submit();") Login
+					input.submit(type="submit",value="Submit")

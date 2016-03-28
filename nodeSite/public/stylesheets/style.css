@@ -122,9 +122,11 @@ body {
 }
 
 .LoginPromptLabel {
-
+	font-family: custom;
+	font-weight: bold;
+	font-size: 16px;
 }
-#LoginPrompt {
+.LoginPrompt {
 	width: 400px;
 	position: relative;
 	top: 50%;
@@ -193,4 +195,26 @@ p {
 .SkillsDiv {
 	margin: auto;
 	width: 400px;
+}
+
+.submitter {
+	border-radius: 5px;
+	border: 4px solid black;
+	padding: 5px;
+	display: inline-block;
+}
+
+.submitter:hover {
+	background: gray;
+}
+
+.submitter:active {
+	background: black;
+}
+
+.submitter a {
+	font-family: custom;
+	font-size: 24px;
+	text-decoration: none;
+	color: black;
 }
