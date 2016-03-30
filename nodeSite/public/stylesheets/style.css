@@ -169,13 +169,19 @@ article {
 	display: inline-block;
 	vertical-align: top;
 	left: 50%;
-	left-margin: -200px;
+	left-margin: -225px;
 }
 
 .BodyDiv {
-	width: 70%;
+	width: 60%;
 	border: 5px solid black;
 	border-radius: 15px;
+	margin: auto;
+	padding: 20px;
+}
+
+.ContactDiv {
+	width: 400px;
 	margin: auto;
 	padding: 20px;
 }
@@ -194,7 +200,12 @@ p {
 
 .SkillsDiv {
 	margin: auto;
-	width: 400px;
+	width: 450px;
+}
+
+.ClassesDiv {
+	margin: auto;
+	width: 500px;
 }
 
 .submitter {
