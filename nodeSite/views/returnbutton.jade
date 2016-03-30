@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	div.returnbutton
+		form#returnbutton(action="/blogindex",method="post")
+			input#username(type="hidden",name="username",value="#{username}")
+			input#password(type="hidden",name="password",value="#{password}")
+			a(href="#",onclick="returnbutton.submit();") Return to Blog Index

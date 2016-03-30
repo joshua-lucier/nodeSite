@@ -1,4 +1,9 @@
 extends layout
 
 block content
-	
+	-each entry,index in result
+		div.BlogRow
+			div.BlogStamp
+				em #{entry.blogstamp}
+			div.BlogTitle
+				a(href="/blogentry?index=#{index}") #{entry.title}

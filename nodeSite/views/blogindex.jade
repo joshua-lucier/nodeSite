@@ -1,11 +1,33 @@
 extends layout
 
 block content
-		form#newentry(action="/newblogentry",method="post")
-			input#username(type="hidden",name="username",value="#{username}")
-			input#password(type="hidden",name="password",value="#{password}")
-			div.LoginPromptDiv
-				center
-					div.submitter
-						a(href="#",onclick="newentry.submit();") New Entry
-	p #{result}
+	form#newentry(action="/newblogentry",method="post")
+		input#username(type="hidden",name="username",value="#{username}")
+		input#password(type="hidden",name="password",value="#{password}")
+		div.LoginPromptDiv
+			center
+				div.submitter
+					a(href="#",onclick="newentry.submit();") New Entry
+	div.BlogList
+		-each entry,index in result
+			div.BlogRow 
+				div.BlogStamp 
+					em #{entry.blogstamp}
+				div.BlogTitle
+					form(id="main#{index}",action="/editblogentry",method="POST")
+						input#username(type="hidden",name="username",value="#{username}")
+						input#password(type="hidden",name="password",value="#{password}")
+						input#title(type="hidden",name="title",value="#{entry.title}")
+						a(href="#",onclick="main#{index}.submit();") #{entry.title}
+				div.EditButton
+					form(id="edit#{index}",action="/editblogentry",method="POST")
+						input#username(type="hidden",name="username",value="#{username}")
+						input#password(type="hidden",name="password",value="#{password}")
+						input#title(type="hidden",name="title",value="#{entry.title}")
+						a(href="#",onclick="edit#{index}.submit();") Edit
+				div.DeleteButton
+					form(id="delete#{index}",action="/deleteblogentry",method="POST")
+						input#username(type="hidden",name="username",value="#{username}")
+						input#password(type="hidden",name="password",value="#{password}")
+						input#title(type="hidden",name="title",value="#{entry.title}")
+						a(href="#",onclick="#{delete#{index}.submit();") Delete

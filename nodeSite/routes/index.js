@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var settings = require('../settings');
-var crypto = require('crypto'), algorithm = 'aes-256-cbc', key = settings.key;
+var crypto = require('crypto'), algorithm = settings.algorithm, key = settings.key;
 var pg = require('pg');
 var input = 'utf8';
 var output = 'hex';
@@ -31,10 +31,6 @@ router.get('/profile', function(req, res, next){
 	res.render('profile', { title: 'Josh\'s Profile'});
 });
 
-router.get('/blog', function(req, res, next){
-	res.render('blog', { title: 'Blog'});
-});
-
 router.get('/resume', function(req, res, next){
 	res.render('resume', { title: 'Resume'});
 });
@@ -47,28 +43,85 @@ router.get('/login', function(req, res, next){
 	res.render('login', { title: 'Login'});
 });
 
+router.get('/blogentry',function(req,res,next){
+	index = req.query.index;
+	pg.connect(settings.conString, function(err, client, done){
+		if(err)
+		{
+			return console.error('error fetching client from pool',err);
+		}
+		var query = client.query('select * from blogentry',function(err,result){
+			done();
+			if(err){
+				console.error('Error getting blogs',err);
+			}
+		});
+		query.on('end',function(result){
+			var queryresult = result.rows[index];
+			console.log(queryresult);
+			res.render('blogentry',{title: queryresult.title, blogstamp: queryresult.blogstamp, title: queryresult.title, blogtext: JSON.stringify(queryresult.blogtext), index: index});
+		});
+	});
+
+});
+
+router.get('/blog',function(req,res,next){
+	pg.connect(settings.conString, function(err, client, done){
+		if(err)
+		{
+			return console.error('error fetching client from pool',err);
+		}
+		var query = client.query('select * from blogentry',function(err,result){
+			done();
+			if(err){
+				console.error('Error getting blogs',err);
+			}
+		});
+		query.on('end',function(result){
+			var queryresult = result.rows;
+			console.log(queryresult);
+			res.render('blog',{title: 'Blog',result: queryresult});
+		});
+	});
+});
+
 router.post('/blogindex', function(req,res,next){
 	user = req.body.username;
 	pass = req.body.password;
-	queryresult = {};
-	if(user==settings.username && pass==settings.password)
+	var queryresult = {};
+	if(user!=settings.username || pass!=settings.password)
 	{
-		username = encrypt(user);
-		password = encrypt(pass);
-		console.log(username);
+		usernamet = decrypt(user);
+		passwordt = decrypt(pass);
+	}
+	else
+	{
+		usernamet = user;
+		passwordt = pass;
+	}
+	if(usernamet==settings.username && passwordt==settings.password)
+	{
+		username = encrypt(usernamet);
+		password = encrypt(passwordt);
 		pg.connect(settings.conString, function(err, client, done){
 			if(err)
 			{
 				return console.error('error fetching client from pool',err);
 			}
-			client.query('select * from blogentry',function(err,result){
-				if(err){console.error('Error getting blogs',err);}
+			var query = client.query('select * from blogentry',function(err,result){
 				done();
-				queryresult = result;
+				if(err){
+					console.error('Error getting blogs',err);
+				}
+			});
+			query.on('end',function(result){
+				var queryresult = result.rows;
+				console.log(queryresult);
+				res.render('blogindex',{title: 'Blog', result: queryresult, username: username, password: password});
 			});
 		});
-		console.log(queryresult);
-		res.render('blogindex',{title: 'Blog', result: queryresult, username: username, password: password});
+		pg.end();
+		
 	}
 	else
 	{
@@ -102,15 +155,17 @@ router.post('/blogentered',function(req,res,next){
 			if(err) {
 				return console.error('error fetching client from pool', err);
 			}
-			client.query('insert into blogentry (blogstamp,title,blogtext) values (now(),$1,$2)', [req.body.title,req.body.blogtext] , function(err, result) {
+			var query = client.query('insert into blogentry (blogstamp,title,blogtext) values (now(),$1,$2)', [req.body.title,req.body.blogtext] , function(err, result) {
 			    //call `done()` to release the client back to the pool
 				done();
 				if(err) {
 					return console.error('Error creating blogentry', err);
 				}
 			});
+			query.on('end',function(result){
+				res.render('returnbutton',{title: 'Return', username: username, password: password});
+			});
 		});
-		res.send('Entry Processed');
 	}
 	else
 	{
@@ -144,7 +199,7 @@ router.post('/dbinit',function(req,res,next){
 				done();
 				if(err)
 				{
-					console.error('Error creating categories',err);
+					return console.error('Error creating categories',err);
 				}
 			});
 			client.query('create table categorysets (CategoryID bigserial references categories (CategoryID), title varchar(200) references blogentry (title), primary key (CategoryID,title))',function(err,result){
@@ -159,4 +214,60 @@ router.post('/dbinit',function(req,res,next){
 	res.send('tables initialized');
 	
 });
+
+router.post('/editblogentry',function(req,res,next){
+	user = decrypt(req.body.username);
+	pass = decrypt(req.body.password);
+	if(user==settings.username && pass==settings.password)
+	{
+		username = encrypt(user);
+		password = encrypt(pass);
+		pg.connect(settings.conString, function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			var query = client.query('select * from blogentry where title = $1',[req.body.title],function(err,result){
+				done();
+				if(err){
+					console.error('Error getting blog entry',err);
+				}
+			});
+			query.on('end',function(result){
+				queryresult = result.rows;
+				res.render('editblogentry',{username: username, password: password, result: queryresult})
+			});
+		});
+		pg.end();
+	}
+});
+
+router.post('/blogedited',function(req,res,next){
+	user = decrypt(req.body.username);
+	pass = decrypt(req.body.password);
+	if(user==settings.username && pass==settings.password)
+	{
+		pg.connect(settings.conString, function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			var query = client.query('update blogentry set blogtext = $2 where title = $1', [req.body.title,req.body.blogtext] , function(err, result) {
+			    //call `done()` to release the client back to the pool
+				done();
+				if(err) {
+					return console.error('Error updating blogentry', err);
+				}
+			});
+			var query2 = client.query('update blogentry set blogstamp = now() where title = $1', [req.body.title], function(err,result){
+				done();
+				if(err){
+					return consol.error('Error updating blogentry', err);
+				}
+			});
+			query2.on('end',function(result){
+				res.render('returnbutton',{title: 'Return', username: username, password: password});
+			});
+		});
+	}
+});
+
 module.exports = router;
