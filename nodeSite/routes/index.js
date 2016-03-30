@@ -71,7 +71,7 @@ router.get('/blog',function(req,res,next){
 		{
 			return console.error('error fetching client from pool',err);
 		}
-		var query = client.query('select * from blogentry',function(err,result){
+		var query = client.query('select * from blogentry order by blogstamp',function(err,result){
 			done();
 			if(err){
 				console.error('Error getting blogs',err);
@@ -108,7 +108,7 @@ router.post('/blogindex', function(req,res,next){
 			{
 				return console.error('error fetching client from pool',err);
 			}
-			var query = client.query('select * from blogentry',function(err,result){
+			var query = client.query('select * from blogentry order by blogstamp',function(err,result){
 				done();
 				if(err){
 					console.error('Error getting blogs',err);
