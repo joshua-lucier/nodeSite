@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	div.ContactDiv
+		form#rename(action="/blogrenamed", method="post")
+			input#username(type="hidden",name="username",value="#{username}")
+			input#password(type="hidden",name="password",value="#{password}")
+			input#oldtitle(type="hidden",name="oldtitle",value="#{title}")
+			label#title(for="title") #{title}:
+			input#title(type="text", name="title", maxchar=200, value="#{title}")
+		div.DeleteButton
+			a(href="#", onclick="rename.submit();") Rename
