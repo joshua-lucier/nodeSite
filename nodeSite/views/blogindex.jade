@@ -30,4 +30,10 @@ block content
 						input#username(type="hidden",name="username",value="#{username}")
 						input#password(type="hidden",name="password",value="#{password}")
 						input#title(type="hidden",name="title",value="#{entry.title}")
-						a(href="#",onclick="#{delete#{index}.submit();") Delete
+						a(href="#",onclick="delete#{index}.submit();") Delete
+				div.RenameButton
+					form(id="rename#{index}",action="/renameblogentry",method="POST")
+						input#username(type="hidden",name="username",value="#{username}")
+						input#password(type="hidden",name="password",value="#{password}")
+						input#title(type="hidden",name="title",value="#{entry.title}")
+						a(href="#",onclick="rename#{index}.submit();") Rename

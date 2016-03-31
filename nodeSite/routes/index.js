@@ -270,4 +270,61 @@ router.post('/blogedited',function(req,res,next){
 	}
 });
 
+router.post('/deleteblogentry', function(req,res,next){
+	user = decrypt(req.body.username);
+	pass = decrypt(req.body.password);
+	if(user==settings.username && pass==settings.password)
+	{
+		username = encrypt(user);
+		password = encrypt(pass);
+		pg.connect(settings.conString, function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			var query = client.query('delete from blogentry where title = $1',[req.body.title], function(error,result){
+				if(error){
+					return console.error('error deleting row', error);
+				}
+			});
+			query.on('end', function(result){
+				res.render('returnbutton', {title: 'Return', username: username, password: password});
+			});
+		});
+	}
+});
+
+router.post('/renameblogentry', function(req,res,next){
+	user = decrypt(req.body.username);
+	pass = decrypt(req.body.password);
+	if(user==settings.username && pass==settings.password)
+	{
+		username = encrypt(user);
+		password = encrypt(pass);
+		res.render('renameblogentry',{title: 'Rename Entry', username: username, password: password, title: req.body.title})
+	}
+});
+
+router.post('/blogrenamed', function(req,res,next){
+	user = decrypt(req.body.username);
+	pass = decrypt(req.body.password);
+	if(user==settings.username && pass==settings.password)
+	{
+		username = encrypt(user);
+		password = encrypt(pass);
+		pg.connect(settings.conString, function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			var query = client.query('update blogentry set title = $2 where title = $1',[req.body.oldtitle,req.body.title], function(error,result){
+				if(error){
+					return console.error('error deleting row', error);
+				}
+			});
+			query.on('end', function(result){
+				res.render('returnbutton', {title: 'Return', username: username, password: password});
+			});
+		});
+	}
+});
+
 module.exports = router;

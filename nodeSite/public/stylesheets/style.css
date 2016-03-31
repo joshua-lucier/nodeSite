@@ -285,6 +285,15 @@ p {
 	font-size: 16px;
 }
 
+
+.EditButton :hover {
+	background: gray;
+}
+
+.EditButton :active{
+	background: black;
+}
+
 .DeleteButton {
 	border: 5px solid black;
 	width: 75px;
@@ -298,6 +307,28 @@ p {
 	color: black;
 	font-family: custom;
 	font-size: 16px;
+}
+
+.DeleteButton :hover {
+	background: gray;
+}
+
+.DeleteButton :active{
+	background: black;
+}
+
+.RenameButton {
+	border: 5px solid black;
+	width: 75px;
+	height: 25px;
+}
+
+.RenameButton :hover {
+	background: gray;
+}
+
+.RenameButton :active{
+	background: black;
 }
 
 .entrytitle {
