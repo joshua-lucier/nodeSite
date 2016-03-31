@@ -2,7 +2,8 @@ extends layout
 
 block content
 	div.entrydiv
+		-var myObjectInBrowser = JSON.parse(blogtext);
 		div.entrytitle #{title}
-		div.entrytext !{blogtext}
+		div.entrytext !{myObjectInBrowser}
 		div.entrytime #{blogstamp}
 		div.entrymenu
