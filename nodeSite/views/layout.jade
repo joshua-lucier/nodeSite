@@ -3,8 +3,8 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/style.css')
-		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-		script tinymce.init({ selector:'textarea' });
+		<script src="/tinymce.min.js"></script>
+		script tinymce.init({ selector:'textarea', plugins : 'advlist autolink link image lists charmap print preview code' });
 		script(src="https://code.jquery.com/jquery-1.10.2.js")
 	body
 		header
