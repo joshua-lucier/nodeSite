@@ -77,7 +77,7 @@ a {
 }
 
 .MenuItemH {
-	width: 90px;
+	width: 200px;
 	text-align: center;
 	display: inline-block;
 	border-radius: 5px;
@@ -97,7 +97,7 @@ a {
 }
 
 #MainMenuH {
-	width: 470px;
+	width: 650px;
 	margin: auto;
 	position: relative;
 	top: 50%;
